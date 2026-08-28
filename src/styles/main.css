@@ -1,0 +1,286 @@
+:root {
+  --panel-bg: rgba(10, 14, 24, 0.85);
+  --panel-border: rgba(120, 160, 255, 0.25);
+  --text: #e8eefc;
+  --muted: #9fb0d8;
+  --accent: #6ea8ff;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #03030a;
+  color: var(--text);
+}
+
+#app,
+#ui-root {
+  position: absolute;
+  inset: 0;
+}
+
+/* #app hosts the canvas; #ui-root is an overlay of panels. Keep the overlay
+   transparent to pointer events so the canvas below still gets mouse input.
+   Interactive UI elements opt back in with pointer-events: auto. */
+#ui-root {
+  pointer-events: none;
+}
+
+canvas {
+  display: block;
+  touch-action: none;
+}
+
+/* Hover tooltip */
+.tooltip {
+  position: fixed;
+  pointer-events: none;
+  z-index: 20;
+  padding: 6px 10px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  font-size: 13px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  transform: translate(12px, 12px);
+  max-width: 220px;
+}
+.tooltip .t-name {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.tooltip .t-desc {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Edge info panel (overview) */
+.info-panel {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 280px;
+  padding: 14px 16px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  z-index: 15;
+  pointer-events: auto;
+}
+.info-panel h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.info-panel .meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.info-panel p {
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 0 0 8px;
+}
+.info-panel .fun {
+  color: var(--accent);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Planet detail overlay */
+.detail-panel {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  max-width: 340px;
+  padding: 16px 18px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+  z-index: 15;
+  pointer-events: auto;
+}
+.detail-panel h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+}
+.detail-panel .meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.detail-panel .stats {
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 13px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3px 12px;
+}
+.detail-panel .stats dt {
+  color: var(--muted);
+}
+.detail-panel .stats dd {
+  margin: 0;
+}
+.detail-panel p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 8px;
+}
+.detail-panel .fun {
+  color: var(--accent);
+  font-size: 13px;
+  font-style: italic;
+}
+
+/* Return button */
+.return-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  padding: 9px 16px;
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 16;
+  pointer-events: auto;
+  transition: background 0.2s;
+}
+.return-btn:hover {
+  background: rgba(40, 55, 90, 0.9);
+}
+
+/* Loading overlay */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: #06080f;
+  z-index: 30;
+  color: var(--muted);
+}
+.loading-overlay .bar {
+  width: 240px;
+  height: 6px;
+  background: #141a2a;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.loading-overlay .bar span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.2s;
+}
+
+/* Error overlay */
+.error-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(6, 8, 15, 0.96);
+  z-index: 40;
+  text-align: center;
+  padding: 24px;
+}
+.error-overlay h2 {
+  margin: 0;
+  color: #ff9a9a;
+}
+.error-overlay p {
+  color: var(--muted);
+  max-width: 460px;
+}
+.error-overlay button {
+  padding: 10px 22px;
+  background: var(--accent);
+  color: #06101f;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  pointer-events: auto;
+}
+
+.overview-hint {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--muted);
+  font-size: 13px;
+  background: rgba(10, 14, 24, 0.55);
+  padding: 6px 14px;
+  border-radius: 999px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+/* Language selector (corner, below the info panel) */
+.locale-selector {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 108px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 6px 10px;
+  z-index: 16;
+  pointer-events: auto;
+}
+.locale-selector span {
+  font-size: 14px;
+}
+.locale-selector select {
+  background: transparent;
+  color: var(--text);
+  border: none;
+  outline: none;
+  font-size: 13px;
+  cursor: pointer;
+}
+.locale-selector select option {
+  background: #0a0e18;
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .info-panel {
+    width: 220px;
+    font-size: 13px;
+  }
+  .detail-panel {
+    max-width: 260px;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+  }
+}
