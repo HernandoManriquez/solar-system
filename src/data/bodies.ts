@@ -268,7 +268,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
     }),
     moon('titan', 'Titan', 'saturn', 2574.7, 1221870, 15.9, {
       sizeUnits: 0.45,
-      orbitRadiusUnits: 4.8,
+      orbitRadiusUnits: 6.2,
       atmosphere: true,
       description: 'Saturn\'s largest moon with a thick atmosphere and lakes of liquid methane.',
       funFact: 'Titan has rivers and lakes of liquid methane and ethane.',
