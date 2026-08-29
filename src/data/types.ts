@@ -32,6 +32,9 @@ export interface BodyData {
   orbitalPeriodDays: number;
   rotationPeriodHours: number;
   moons: string[];
+  /** True total of confirmed natural satellites. Distinct from `moons`, which
+   * lists only the notable ones modeled in the scene. */
+  confirmedMoons?: number;
   hasRings: boolean;
   atmosphere: { present: boolean; description: string };
   description: string;

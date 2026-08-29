@@ -4,3 +4,13 @@ dist-ssr
 *.local
 .DS_Store
 npm-debug.log*
+
+# Project docs and AI-agent context (kept out of the public GitHub repo)
+/.ai/
+/AGENTS.md
+/CLAUDE.md
+/README.md
+/docs/
+/project.yaml
+/scripts/
+/specs.md

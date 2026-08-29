@@ -42,7 +42,9 @@ export class InfoPanel {
           : body.type === 'sun'
             ? i18n.t('kindStar', s.locale)
             : i18n.t('kindMoon', s.locale);
-      const moons = i18n.format(i18n.t('moonsCount', s.locale), { n: body.moons.length });
+      const moons = i18n.format(i18n.t('moonsCount', s.locale), {
+        n: body.confirmedMoons ?? body.moons.length,
+      });
       this.meta.textContent =
         `${kind} · ${moons}` + (body.hasRings ? ` · ${i18n.t('rings', s.locale)}` : '');
       this.desc.textContent = i18n.description(body, s.locale);

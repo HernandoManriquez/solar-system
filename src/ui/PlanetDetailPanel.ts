@@ -1,6 +1,7 @@
 import type { InteractionState } from '../systems/InteractionState';
 import { getBody, getMoonsOf } from '../data/solarSystem';
-import { i18n } from '../i18n';
+import { i18n, type Locale } from '../i18n';
+import type { BodyData } from '../data/types';
 import { clear, el, fmtKm } from './dom';
 
 /**
@@ -72,9 +73,8 @@ export class PlanetDetailPanel {
       }
       if (body.hasRings) this.addStat(i18n.t('statRings', s.locale), i18n.t('yes', s.locale));
       const moons = getMoonsOf(body.id);
-      if (moons.length) {
-        const names = moons.map((m) => i18n.name(m, s.locale)).join(', ');
-        this.addStat(i18n.t('statMoons', s.locale), `${moons.length} (${names})`);
+      if (moons.length || body.confirmedMoons) {
+        this.addStat(i18n.t('statMoons', s.locale), this.moonsValue(body, moons, s.locale));
       } else {
         this.addStat(i18n.t('statMoons', s.locale), i18n.t('noneShown', s.locale));
       }
@@ -96,6 +96,23 @@ export class PlanetDetailPanel {
     state.subscribe('select', render);
     state.subscribe('locale', render);
     state.subscribe('change', render);
+  }
+
+  /** "Moons" stat: shows the confirmed total and, when it differs from the
+   * notable subset modeled in the scene, how many of them are shown. */
+  private moonsValue(body: BodyData, moons: BodyData[], locale: Locale): string {
+    const names = moons.map((m) => i18n.name(m, locale)).join(', ');
+    const shown = moons.length;
+    if (body.confirmedMoons == null || body.confirmedMoons === shown) {
+      return shown ? `${shown} (${names})` : i18n.t('noneShown', locale);
+    }
+    if (shown > 0) {
+      return `${body.confirmedMoons} ${i18n.t('confirmed', locale)} · ${i18n.format(
+        i18n.t('shownCount', locale),
+        { n: shown },
+      )}: ${names}`;
+    }
+    return `${body.confirmedMoons} ${i18n.t('confirmed', locale)} · ${i18n.t('noneShown', locale)}`;
   }
 
   private addStat(label: string, value: string): void {

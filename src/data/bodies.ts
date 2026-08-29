@@ -16,6 +16,7 @@ function planet(
     rotationSpeed?: number;
     orbitSpeed?: number;
     moons?: string[];
+    confirmedMoons?: number;
     hasRings?: boolean;
     atmosphere?: boolean;
     atmosphereDesc?: string;
@@ -33,6 +34,7 @@ function planet(
     orbitalPeriodDays,
     rotationPeriodHours,
     moons: opts.moons ?? [],
+    confirmedMoons: opts.confirmedMoons,
     hasRings: opts.hasRings ?? false,
     atmosphere: {
       present: opts.atmosphere ?? false,
@@ -129,6 +131,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Mercury is the smallest planet and the closest to the Sun. It has no atmosphere and a heavily cratered surface resembling the Moon.',
       funFact: 'A year on Mercury is just 88 Earth days.',
       asset: { colorMap: 'textures/mercury/color.jpg' },
+      confirmedMoons: 0,
     }),
     planet('venus', 'Venus', 6051.8, 108200000, 225, 5832.5, {
       sizeUnits: 0.85,
@@ -141,6 +144,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Venus is the hottest planet in the solar system due to a runaway greenhouse effect. It spins in the opposite direction to most planets.',
       funFact: 'Venus rotates backwards and a day is longer than its year.',
       asset: { colorMap: 'textures/venus/color.jpg' },
+      confirmedMoons: 0,
     }),
     planet('earth', 'Earth', 6371, 149600000, 365.25, 24, {
       sizeUnits: 0.9,
@@ -154,6 +158,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Earth is the third planet from the Sun and the only known world to harbor life. About 71% of its surface is covered with water.',
       funFact: 'Earth is the only planet not named after a Greek or Roman deity.',
       asset: { colorMap: 'textures/earth/color.jpg' },
+      confirmedMoons: 1,
     }),
     planet('mars', 'Mars', 3389.5, 227900000, 687, 24.6, {
       sizeUnits: 0.65,
@@ -166,6 +171,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Mars is the fourth planet from the Sun, known for its red, iron-rich surface. It hosts the largest volcano and canyon in the solar system.',
       funFact: 'Mars has two small moons, Phobos and Deimos.',
       asset: { colorMap: 'textures/mars/color.jpg' },
+      confirmedMoons: 2,
     }),
     planet('jupiter', 'Jupiter', 69911, 778600000, 4333, 9.9, {
       sizeUnits: 2.4,
@@ -179,6 +185,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Jupiter is the largest planet in the solar system, a gas giant with dozens of moons. Its Great Red Spot is a storm larger than Earth.',
       funFact: 'Jupiter has the shortest day of all planets, about 10 hours.',
       asset: { colorMap: 'textures/jupiter/color.jpg' },
+      confirmedMoons: 115,
     }),
     planet('saturn', 'Saturn', 58232, 1433500000, 10759, 10.7, {
       sizeUnits: 2.1,
@@ -196,6 +203,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         colorMap: 'textures/saturn/color.jpg',
         ringMap: 'textures/saturn/ring.png',
       },
+      confirmedMoons: 293,
     }),
     planet('uranus', 'Uranus', 25362, 2871000000, 30687, 17.2, {
       sizeUnits: 1.5,
@@ -209,6 +217,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Uranus is the seventh planet from the Sun, an ice giant that rotates on its side with faint rings and a pale blue color from methane.',
       funFact: 'Uranus rotates on its side at nearly 98 degrees.',
       asset: { colorMap: 'textures/uranus/color.jpg' },
+      confirmedMoons: 29,
     }),
     planet('neptune', 'Neptune', 24622, 4495000000, 60190, 16.1, {
       sizeUnits: 1.4,
@@ -222,6 +231,7 @@ export const SOLAR_SYSTEM: SolarSystemData = {
         'Neptune is the eighth and most distant planet from the Sun, a deep blue ice giant with the strongest winds and a large dark storm.',
       funFact: 'Neptune has the fastest winds of any planet, over 2,000 km/h.',
       asset: { colorMap: 'textures/neptune/color.jpg' },
+      confirmedMoons: 16,
     }),
   ],
 

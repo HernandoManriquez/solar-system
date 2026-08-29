@@ -37,6 +37,15 @@ describe('solar system data', () => {
     expect(errors).toEqual([]);
   });
 
+  it('every planet reports a confirmed moon count at least as large as the modeled moons', () => {
+    for (const p of SOLAR_SYSTEM.planets) {
+      expect(typeof p.confirmedMoons).toBe('number');
+      expect(Number.isInteger(p.confirmedMoons)).toBe(true);
+      expect(p.confirmedMoons!).toBeGreaterThanOrEqual(0);
+      expect(p.confirmedMoons!).toBeGreaterThanOrEqual(p.moons.length);
+    }
+  });
+
   it('planets with rings are flagged and the prominent ring body has a ring map', () => {
     const rings = SOLAR_SYSTEM.planets.filter((p) => p.hasRings);
     expect(rings.length).toBeGreaterThan(0);

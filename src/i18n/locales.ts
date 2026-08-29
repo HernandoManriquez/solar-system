@@ -19,6 +19,8 @@ export type UIKey =
   | 'kindStar'
   | 'kindMoon'
   | 'moonsCount'
+  | 'confirmed'
+  | 'shownCount'
   | 'rings'
   | 'statRadius'
   | 'statOrbitalDistance'
@@ -66,6 +68,8 @@ export const UI_STRINGS: UIStrings = {
     kindStar: 'Star',
     kindMoon: 'Moon',
     moonsCount: '{n} moons',
+    confirmed: 'confirmed',
+    shownCount: 'showing {n}',
     rings: 'rings',
     statRadius: 'Radius',
     statOrbitalDistance: 'Orbital distance',
@@ -102,6 +106,8 @@ export const UI_STRINGS: UIStrings = {
     kindStar: 'Estrella',
     kindMoon: 'Luna',
     moonsCount: '{n} lunas',
+    confirmed: 'confirmadas',
+    shownCount: 'mostrando {n}',
     rings: 'anillos',
     statRadius: 'Radio',
     statOrbitalDistance: 'Distancia orbital',
