@@ -272,6 +272,41 @@ canvas {
   color: var(--text);
 }
 
+/* Motion controls (pause + speed, bottom-right) */
+.motion-controls {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 16;
+  pointer-events: auto;
+}
+.mc-btn {
+  padding: 8px 14px;
+  background: var(--panel-bg);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.mc-btn:hover {
+  background: rgba(40, 55, 90, 0.9);
+}
+.mc-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06101f;
+  font-weight: 600;
+}
+.mc-speed {
+  display: flex;
+  gap: 6px;
+}
+
 @media (max-width: 720px) {
   .info-panel {
     width: 220px;

@@ -58,4 +58,34 @@ describe('InteractionState', () => {
     state.setHovered('b');
     expect(count).toBe(1);
   });
+
+  it('starts unpaused at 1x speed', () => {
+    const state = new InteractionState();
+    expect(state.getPaused()).toBe(false);
+    expect(state.getSpeed()).toBe(1);
+  });
+
+  it('toggles pause and emits change', () => {
+    const state = new InteractionState();
+    const onChange = vi.fn();
+    state.subscribe('change', onChange);
+    state.togglePaused();
+    expect(state.getPaused()).toBe(true);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    state.togglePaused();
+    expect(state.getPaused()).toBe(false);
+    state.togglePaused();
+    expect(state.getPaused()).toBe(true);
+  });
+
+  it('sets speed and ignores no-op changes', () => {
+    const state = new InteractionState();
+    const onChange = vi.fn();
+    state.subscribe('change', onChange);
+    state.setSpeed(2);
+    expect(state.getSpeed()).toBe(2);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    state.setSpeed(2);
+    expect(onChange).toHaveBeenCalledTimes(1);
+  });
 });

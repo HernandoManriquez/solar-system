@@ -18,6 +18,7 @@ import { InfoPanel } from '../ui/InfoPanel';
 import { PlanetDetailPanel } from '../ui/PlanetDetailPanel';
 import { ReturnButton } from '../ui/ReturnButton';
 import { LocaleSelector } from '../ui/LocaleSelector';
+import { MotionControls } from '../ui/MotionControls';
 import type { Locale } from '../systems/InteractionState';
 
 /**
@@ -39,9 +40,9 @@ export class App {
   private loadingOverlay: LoadingOverlay;
   private errorOverlay: ErrorOverlay;
   private localeSelector: LocaleSelector;
+  private motionControls: MotionControls;
   private raf = 0;
   private lastTime = 0;
-  private speedMultiplier = 1;
   private disposed = false;
 
   constructor(private container: HTMLElement, private uiRoot: HTMLElement) {
@@ -90,6 +91,7 @@ export class App {
     new PlanetDetailPanel(this.state, this.uiRoot);
     new ReturnButton(this.state, this.uiRoot);
     this.localeSelector = new LocaleSelector(this.state, this.uiRoot);
+    this.motionControls = new MotionControls(this.state, this.uiRoot);
     this.applyPersistedLocale();
 
     this.assetLoader.setHandlers({
@@ -213,11 +215,12 @@ export class App {
     this.lastTime = now;
 
     this.controls.update();
+    const motionSpeed = this.state.getPaused() ? 0 : this.state.getSpeed();
     this.orbitController.advance(
       SYSTEM.planets,
       SYSTEM.moons,
       dt,
-      this.speedMultiplier,
+      motionSpeed,
     );
     this.solarSystemView.applyMotion(this.orbitController);
     this.detailView.applyMotion(this.orbitController);
@@ -238,6 +241,7 @@ export class App {
     this.loadingOverlay.dispose();
     this.errorOverlay.dispose();
     this.localeSelector.dispose();
+    this.motionControls.dispose();
     this.renderer.dispose();
   }
 }

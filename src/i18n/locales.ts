@@ -8,6 +8,8 @@ export const LOCALES: Locale[] = ['en', 'es'];
 export type UIKey =
   | 'loadingTitle'
   | 'returnToSystem'
+  | 'motionPause'
+  | 'motionResume'
   | 'errorTitle'
   | 'errorRetry'
   | 'reload'
@@ -56,6 +58,8 @@ export const UI_STRINGS: UIStrings = {
   en: {
     loadingTitle: 'Loading Solar System…',
     returnToSystem: '← Solar System',
+    motionPause: 'Pause',
+    motionResume: 'Resume',
     errorTitle: 'Something went wrong',
     errorRetry: 'Retry',
     reload: 'Reload',
@@ -93,6 +97,8 @@ export const UI_STRINGS: UIStrings = {
   es: {
     loadingTitle: 'Cargando el sistema solar…',
     returnToSystem: '← Sistema Solar',
+    motionPause: 'Pausar',
+    motionResume: 'Reanudar',
     errorTitle: 'Algo salió mal',
     errorRetry: 'Reintentar',
     reload: 'Recargar',

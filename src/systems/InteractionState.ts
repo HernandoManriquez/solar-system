@@ -8,6 +8,8 @@ export interface InteractionStateSnapshot {
   loading: boolean;
   error: string | null;
   locale: Locale;
+  paused: boolean;
+  speed: number;
   hoverScreen?: { x: number; y: number };
 }
 
@@ -27,6 +29,8 @@ export class InteractionState {
     loading: true,
     error: null,
     locale: 'en',
+    paused: false,
+    speed: 1,
   };
 
   private listeners = new Map<EventName, Set<Listener>>();
@@ -43,7 +47,7 @@ export class InteractionState {
 
   private emit(event: EventName): void {
     this.listeners.get(event)?.forEach((l) => l(this.snapshot));
-    this.listeners.get('change')?.forEach((l) => l(this.snapshot));
+    if (event !== 'change') this.listeners.get('change')?.forEach((l) => l(this.snapshot));
   }
 
   setMode(mode: ViewMode): void {
@@ -108,5 +112,29 @@ export class InteractionState {
 
   getLocale(): Locale {
     return this.snapshot.locale;
+  }
+
+  setPaused(paused: boolean): void {
+    if (this.snapshot.paused === paused) return;
+    this.snapshot.paused = paused;
+    this.emit('change');
+  }
+
+  togglePaused(): void {
+    this.setPaused(!this.snapshot.paused);
+  }
+
+  getPaused(): boolean {
+    return this.snapshot.paused;
+  }
+
+  setSpeed(speed: number): void {
+    if (this.snapshot.speed === speed) return;
+    this.snapshot.speed = speed;
+    this.emit('change');
+  }
+
+  getSpeed(): number {
+    return this.snapshot.speed;
   }
 }
